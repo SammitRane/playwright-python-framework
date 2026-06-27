@@ -1,15 +1,19 @@
-class SignupPage:
+from pages.base_page import BasePage
 
-    def __init__(self, page):
-        self.page = page
+
+class SignupPage(BasePage):
+
+    SIGNUP_NAME = "input[data-qa='signup-name']"
+    SIGNUP_EMAIL = "input[data-qa='signup-email']"
+    SIGNUP_BTN = "button[data-qa='signup-button']"
 
     def open_login_page(self):
-        self.page.goto("https://automationexercise.com/login")
+        self.goto("https://automationexercise.com/login")
 
     def enter_signup_details(self, name, email):
-        self.page.locator("input[data-qa='signup-name']").fill(name)
-        self.page.locator("input[data-qa='signup-email']").fill(email)
-        self.page.locator("button[data-qa='signup-button']").click()
+        self.fill(self.SIGNUP_NAME, name)
+        self.fill(self.SIGNUP_EMAIL, email)
+        self.click(self.SIGNUP_BTN)
 
     def fill_account_details(self):
         self.page.locator("#id_gender1").check()
@@ -34,4 +38,4 @@ class SignupPage:
         self.page.locator("button[data-qa='create-account']").click()
 
     def is_account_created(self):
-        return self.page.locator("h2[data-qa='account-created']").is_visible()
+        return self.is_visible("h2[data-qa='account-created']")
