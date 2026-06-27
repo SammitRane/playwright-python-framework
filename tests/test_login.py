@@ -1,11 +1,27 @@
+import allure
 from pages.login_page import LoginPage
 
 
+@allure.epic("Authentication")
+@allure.feature("Login")
+@allure.story("Existing User Login")
+@allure.title("Verify existing user can login successfully")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_login(browserInstance):
     page = browserInstance
     login = LoginPage(page)
 
-    login.open_login_page()
-    login.login("rane.sammit@gmail.com", "Sammit@3")
+    email = "rane.sammit@gmail.com"
+    password = "Sammit@3"  # ideally move to config/env later
 
-    login.verify_logged_in()
+    with allure.step("Open login page"):
+        login.open_login_page()
+
+    with allure.step("Enter login credentials"):
+        login.enter_credentials(email, password)
+
+    with allure.step("Submit login form"):
+        login.submit_login()
+
+    with allure.step("Verify user is logged in successfully"):
+        login.verify_login_success()
