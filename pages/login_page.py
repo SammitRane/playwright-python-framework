@@ -1,4 +1,6 @@
 from pages.base_page import BasePage
+from playwright.sync_api import expect
+
 
 
 class LoginPage(BasePage):
@@ -15,5 +17,6 @@ class LoginPage(BasePage):
         self.fill(self.PASSWORD, password)
         self.click(self.LOGIN_BTN)
 
-    def is_logged_in(self):
-        return self.is_visible("a[href='/logout']")
+    def verify_logged_in(self):
+        logout_link = self.page.locator("a[href='/logout']")
+        expect(logout_link).to_be_visible()

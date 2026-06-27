@@ -11,5 +11,6 @@ def test_signup(browserInstance):
     signup.open_login_page()
     signup.enter_signup_details("Sammit", email)
     signup.fill_account_details()
+    signup.verify_account_created()
 
-    assert signup.is_account_created()
+    

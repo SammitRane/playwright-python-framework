@@ -1,4 +1,7 @@
 from pages.base_page import BasePage
+from playwright.sync_api import expect
+
+
 
 
 class SignupPage(BasePage):
@@ -37,5 +40,7 @@ class SignupPage(BasePage):
 
         self.page.locator("button[data-qa='create-account']").click()
 
-    def is_account_created(self):
-        return self.is_visible("h2[data-qa='account-created']")
+    def verify_account_created(self):
+        success_msg = self.page.locator("h2[data-qa='account-created']")
+        expect(success_msg).to_be_visible()
+        expect(success_msg).to_contain_text("Account Created!")
