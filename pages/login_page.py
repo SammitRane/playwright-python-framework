@@ -12,11 +12,13 @@ class LoginPage(BasePage):
     def open_login_page(self):
         self.goto("https://automationexercise.com/login")
 
-    def login(self, email, password):
+    def enter_credentials(self, email, password):
         self.fill(self.EMAIL, email)
         self.fill(self.PASSWORD, password)
+
+    def submit_login(self):
         self.click(self.LOGIN_BTN)
 
-    def verify_logged_in(self):
+    def verify_login_success(self):
         logout_link = self.page.locator("a[href='/logout']")
         expect(logout_link).to_be_visible()
